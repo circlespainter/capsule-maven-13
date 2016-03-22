@@ -7,7 +7,7 @@ This is a reduced program that reproduces https://github.com/puniverse/capsule-m
     compile 'org.slf4j:slf4j-simple:1.7.19'        // Depends on slf4j-api 1.7.19
 ```
 
-The conflict between `org.slf4j:slf4j-api:jar:1.7.18` and `org.slf4j:slf4j-api:jar:1.7.19` seems not to be automatically resolved towards `1.7.19`. Indeed, `gradle run` yields:
+The conflict between `org.slf4j:slf4j-api:jar:1.7.18` and `org.slf4j:slf4j-api:jar:1.7.19` seems not to be automatically resolved towards `1.7.19`. Indeed, `gradlew run` yields:
 
 ```
 Resolving: [ch.qos.logback:logback-classic:jar:1.1.6 (compile), org.slf4j:slf4j-simple:jar:1.7.19 (compile)]
