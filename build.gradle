@@ -1,0 +1,95 @@
+apply plugin: 'java'
+
+apply plugin: 'application'
+
+mainClassName = 'AetherConflictRes'
+
+version             = '0.1.0-SNAPSHOT'
+status              = 'integration'
+description         = 'capsule-maven-13'
+
+ext.classifier      = ':' // ':jdk8'
+sourceCompatibility = 1.7     // 1.8
+targetCompatibility = 1.7     // 1.8
+
+ext.aetherVer = '1.0.2.v20150114'
+
+[compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
+
+configurations {
+    quasar
+    provided
+    capsule
+    capsuleMaven
+}
+
+sourceSets {
+    main.compileClasspath = main.compileClasspath + configurations.provided
+    test.compileClasspath = test.compileClasspath + configurations.provided
+    test.runtimeClasspath = test.runtimeClasspath + configurations.provided
+}
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+//    maven { url "https://oss.sonatype.org/content/repositories/releases" }
+    maven { url 'https://oss.sonatype.org/content/repositories/snapshots' }
+//    maven { url 'https://maven.java.net/content/repositories/snapshots' }
+}
+
+dependencies {
+    compile "org.eclipse.aether:aether-api:$aetherVer"
+    compile "org.eclipse.aether:aether-util:$aetherVer"
+    compile "org.eclipse.aether:aether-impl:$aetherVer"
+    compile "org.eclipse.aether:aether-connector-basic:$aetherVer"
+    compile "org.eclipse.aether:aether-transport-file:$aetherVer"
+    compile("org.eclipse.aether:aether-transport-http:$aetherVer") {
+        exclude group: 'org.slf4j', module: 'slf4j-api'
+    }
+    compile('org.apache.maven:maven-aether-provider:3.3.3') {
+        exclude group: 'org.eclipse.aether', module: '*'
+    }
+
+    compile 'ch.qos.logback:logback-classic:1.1.6' // Depends on slf4j-api 1.7.18
+//    compile 'org.slf4j:slf4j-simple:1.7.19'        // Depends on slf4j-api 1.7.19
+//
+//    capsule 'co.paralleluniverse:capsule:1.0.2-SNAPSHOT'
+//    capsuleMaven 'co.paralleluniverse:capsule-maven:1.0.2-SNAPSHOT'
+}
+
+//def getDependencies(config) {
+//    return config.getAllDependencies().collect {
+//        def res = it.group + ':' + it.name + ':' + it.version
+//        if(!it.excludeRules.isEmpty()) {
+//            res += "(" + it.excludeRules.collect { it.group + ':' + it.module }.join(',') + ")"
+//        }
+//        return res
+//    }
+//}
+//
+//task thinCapsule(type: Jar, dependsOn: classes) {
+//    archiveName = "capsule-maven-13-thin.jar"
+//
+//    from sourceSets.main.output // this way we don't need to extract
+//
+//    from { configurations.capsule.collect { zipTree(it) } } // we need all of Capsule's classes
+//    from { configurations.capsuleMaven.collect { zipTree(it) } } // we need all of Capsule Maven's classes
+//
+//    manifest {
+//        attributes (
+//            'Premain-Class'     : 'Capsule',
+//            'Main-Class'        : 'Capsule',
+//            'Application-Class' : 'Main',
+//            'Application-Version' : version,
+//            'Extract-Capsule'   : 'false', // don't extract capsule to the filesystem
+//            'JVM-Args'          : run.jvmArgs.join(' '),
+//            'System-Properties' : run.systemProperties.collect { k,v -> "$k=$v" }.join(' '),
+//            'Dependencies'      : getDependencies(configurations.runtime).join(' '),
+//            'Allow-Snapshots'   : 'true',
+//
+//            'Caplets'           : 'MavenCapsule'
+//        )
+//    }
+//}
+//
+//defaultTasks 'thinCapsule'
