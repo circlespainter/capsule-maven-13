@@ -12,7 +12,8 @@ ext.classifier      = ':' // ':jdk8'
 sourceCompatibility = 1.7     // 1.8
 targetCompatibility = 1.7     // 1.8
 
-ext.aetherVer = '1.0.2.v20150114'
+// ext.aetherVer = '1.0.2.v20150114'
+ext.aetherVer = '1.1.0'
 
 [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
 

@@ -7,7 +7,7 @@ This is a reduced program that reproduces https://github.com/puniverse/capsule-m
     compile 'org.slf4j:slf4j-simple:1.7.19'        // Depends on slf4j-api 1.7.19
 ```
 
-The conflict between `org.slf4j:slf4j-api:jar:1.7.18` and `org.slf4j:slf4j-api:jar:1.7.19` seems not to be automatically resolved towards `1.7.19`. Indeed, `gradlew run` yields:
+The conflict between `org.slf4j:slf4j-api:jar:1.7.18` and `org.slf4j:slf4j-api:jar:1.7.19` seems not to be automatically resolved. Indeed, `gradlew run` yields both versions:
 
 ```
 Resolving: [ch.qos.logback:logback-classic:jar:1.1.6 (compile), org.slf4j:slf4j-simple:jar:1.7.19 (compile)]
@@ -17,3 +17,5 @@ Resolving: [ch.qos.logback:logback-classic:jar:1.1.6 (compile), org.slf4j:slf4j-
 
 Result: [ch.qos.logback:logback-classic:jar:1.1.6 < https://repo1.maven.org/maven2/ (https://repo1.maven.org/maven2/, default, releases+snapshots), ch.qos.logback:logback-core:jar:1.1.6 < https://repo1.maven.org/maven2/ (https://repo1.maven.org/maven2/, default, releases+snapshots), org.slf4j:slf4j-api:jar:1.7.18 < https://repo1.maven.org/maven2/ (https://repo1.maven.org/maven2/, default, releases+snapshots), org.slf4j:slf4j-simple:jar:1.7.19 < https://repo1.maven.org/maven2/ (https://repo1.maven.org/maven2/, default, releases+snapshots), org.slf4j:slf4j-api:jar:1.7.19 < https://repo1.maven.org/maven2/ (https://repo1.maven.org/maven2/, default, releases+snapshots)]
 ```
+
+This happens with both Aether `1.0.2.v20150114` and `1.1.0`.
